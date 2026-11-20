@@ -1,4 +1,3 @@
-
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
@@ -10,15 +9,24 @@ import { errorHandler } from "./middleware/errorHandler";
 
 export const app = express();
 
-app.use(helmet());
+app.set("trust proxy", 1);
+
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+  }),
+);
+
+const allowedOrigins = [
+  process.env.CORS_ORIGIN?.trim().replace(/\/$/, ""),
+  "http://localhost:4200",
+  "http://127.0.0.1:4200",
+].filter((origin): origin is string => Boolean(origin));
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:4200",
-      "http://127.0.0.1:4200",
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
