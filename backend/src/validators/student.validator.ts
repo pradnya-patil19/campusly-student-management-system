@@ -14,12 +14,12 @@ export const studentSchema = z.object({
     ),
   email: z.string().trim().email().max(254),
   mobileNumber: z
-    .string()
-    .trim()
-    .regex(
-      /^\d{10}$/,
-      "Mobile number must contain exactly 10 digits"
-    ),
+  .string()
+  .trim()
+  .regex(
+    /^[6-9]\d{9}$/,
+    "Enter a valid Indian mobile number (10 digits, starting with 6, 7, 8 or 9)."
+  ),
   gender: z.enum([
     "Male",
     "Female",
