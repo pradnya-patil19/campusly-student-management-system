@@ -1,0 +1,91 @@
+<div class="min-h-screen bg-slate-50 p-6">
+  <div class="mx-auto max-w-4xl">
+    <a
+      routerLink="/students"
+      class="text-sm font-semibold text-campus-900 hover:underline"
+    >
+      ← Back to Students
+    </a>
+
+    <div *ngIf="loading" class="mt-6 text-slate-500">
+      Loading student details...
+    </div>
+
+    <div *ngIf="error" class="mt-6 rounded-lg bg-red-50 p-4 text-red-700">
+      {{ error }}
+    </div>
+
+    <div
+      *ngIf="!loading && student"
+      class="mt-6 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm"
+    >
+      <div class="flex items-center justify-between">
+        <h1 class="font-display text-2xl font-bold text-campus-950">
+          Student Details
+        </h1>
+
+        <a
+          [routerLink]="['/students', student.id]"
+          class="rounded-lg bg-campus-950 px-4 py-2 text-sm font-semibold text-white"
+        >
+          Edit Student
+        </a>
+      </div>
+
+      <div class="mt-8 flex flex-col gap-6 sm:flex-row">
+        <img
+          *ngIf="student.photoUrl"
+          [src]="student.photoUrl"
+          alt="Student photo"
+          class="h-32 w-32 rounded-xl object-cover"
+        />
+
+        <div>
+          <h2 class="text-xl font-bold text-campus-950">
+            {{ student.name }}
+          </h2>
+          <p class="mt-1 text-sm text-slate-500">
+            Admission No: {{ student.admissionNumber }}
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-8 grid gap-6 sm:grid-cols-2">
+        <div>
+          <p class="text-xs font-semibold uppercase text-slate-400">Course</p>
+          <p class="mt-1 font-medium">{{ student.course }}</p>
+        </div>
+
+        <div>
+          <p class="text-xs font-semibold uppercase text-slate-400">Year</p>
+          <p class="mt-1 font-medium">{{ student.year }}</p>
+        </div>
+
+        <div>
+          <p class="text-xs font-semibold uppercase text-slate-400">Date of Birth</p>
+          <p class="mt-1 font-medium">{{ student.dob | date }}</p>
+        </div>
+
+        <div>
+          <p class="text-xs font-semibold uppercase text-slate-400">Email</p>
+          <p class="mt-1 font-medium">{{ student.email }}</p>
+        </div>
+
+        <div>
+          <p class="text-xs font-semibold uppercase text-slate-400">Mobile</p>
+          <p class="mt-1 font-medium">{{ student.mobileNumber }}</p>
+        </div>
+
+        <div>
+          <p class="text-xs font-semibold uppercase text-slate-400">Gender</p>
+          <p class="mt-1 font-medium">{{ student.gender }}</p>
+        </div>
+
+        <div class="sm:col-span-2">
+          <p class="text-xs font-semibold uppercase text-slate-400">Address</p>
+          <p class="mt-1 font-medium">{{ student.address }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

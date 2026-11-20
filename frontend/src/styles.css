@@ -1,0 +1,74 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-campus-950: #001D39;
+  --color-campus-900: #0A4174;
+  --color-campus-700: #49769F;
+  --color-campus-600: #4E8EA2;
+  --color-campus-500: #6EA2B3;
+  --color-campus-300: #7BBDE8;
+  --color-campus-100: #BDD8E9;
+
+  --color-page: #F3F7FA;
+  --color-surface: #FFFFFF;
+  --color-line: #E3EBF1;
+  --color-muted: #718397;
+  --color-ink: #102B43;
+
+  --font-sans: "DM Sans", sans-serif;
+  --font-display: "Manrope", sans-serif;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    min-width: 320px;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--color-page);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-synthesis: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  ::selection {
+    color: #001D39;
+    background: #BDD8E9;
+  }
+}

@@ -1,0 +1,321 @@
+<div class="mx-auto w-full max-w-5xl">
+
+  <!-- PAGE HEADER -->
+  <section class="mb-7 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+    <div>
+      <div
+        class="mb-3 inline-flex items-center gap-2 rounded-full border border-campus-100 bg-campus-100/50 px-3 py-1.5">
+        <span class="h-1.5 w-1.5 rounded-full bg-campus-600"></span>
+        <span class="text-[10px] font-extrabold uppercase tracking-[0.16em] text-campus-900">
+          Student Management
+        </span>
+      </div>
+
+      <h1 class="font-display text-3xl font-extrabold tracking-tight text-campus-950 sm:text-4xl">
+        {{ isEdit ? "Edit student" : "Add a student" }}
+      </h1>
+
+      <p class="mt-2 max-w-xl text-sm leading-6 text-muted">
+        {{
+        isEdit
+        ? "Update the student's personal and academic information."
+        : "Create a student admission record by completing the information below."
+        }}
+      </p>
+    </div>
+
+    <a routerLink="/"
+      class="inline-flex w-fit items-center gap-2 rounded-xl border border-line bg-white px-4 py-2.5 text-xs font-bold text-campus-900 shadow-sm transition hover:border-campus-500 hover:bg-campus-100/40">
+      <span class="text-base">←</span>
+      Back to students
+    </a>
+  </section>
+
+  <!-- FORM CARD -->
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate
+    class="overflow-hidden rounded-2xl border border-line bg-white shadow-[0_12px_40px_rgba(0,29,57,0.06)]">
+
+    <!-- FORM INTRODUCTION -->
+    <div class="relative overflow-hidden bg-campus-950 px-5 py-6 text-white sm:px-8">
+      <div class="pointer-events-none absolute -right-10 -top-20 h-52 w-52 rounded-full bg-campus-700/30 blur-3xl">
+      </div>
+
+      <div class="relative flex items-center justify-between gap-4">
+        <div>
+          <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-campus-300">
+            Campusly · Student record
+          </p>
+          <h2 class="mt-2 font-display text-xl font-extrabold sm:text-2xl">
+            Student information
+          </h2>
+          <p class="mt-1.5 text-xs leading-5 text-campus-100">
+            Fields marked with <span class="font-bold text-campus-300">*</span> are required.
+          </p>
+        </div>
+
+        <div
+          class="hidden h-14 w-14 shrink-0 place-items-center rounded-2xl border border-white/15 bg-white/10 sm:grid">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-7 w-7 text-campus-100">
+            <circle cx="12" cy="8" r="4" />
+            <path d="M4 21v-2a8 8 0 0 1 16 0v2" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- PERSONAL INFORMATION -->
+    <section class="p-5 sm:p-8">
+      <div class="mb-7 flex items-start gap-4">
+        <span
+          class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-campus-100/70 font-display text-sm font-extrabold text-campus-950">
+          01
+        </span>
+
+        <div>
+          <h2 class="font-display text-lg font-extrabold text-campus-950">
+            Personal information
+          </h2>
+          <p class="mt-1 text-xs leading-5 text-muted">
+            Basic details used to identify and contact the student.
+          </p>
+        </div>
+      </div>
+
+      <!-- PHOTO UPLOAD -->
+      <div class="mb-8 rounded-2xl border border-dashed border-campus-300 bg-[#F5F9FC] p-4 sm:p-5">
+        <div class="flex flex-col gap-5 sm:flex-row sm:items-center">
+          <div
+            class="grid h-28 w-28 shrink-0 place-items-center overflow-hidden rounded-2xl border border-campus-100 bg-white shadow-sm">
+            <img *ngIf="preview" [src]="preview" alt="Student photo preview" class="h-full w-full object-cover" />
+
+            <span *ngIf="!preview" class="flex flex-col items-center gap-2 text-campus-700">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-8 w-8">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 21v-2a8 8 0 0 1 16 0v2" />
+              </svg>
+              <span class="text-[10px] font-bold">Student photo</span>
+            </span>
+          </div>
+
+          <div class="min-w-0 flex-1">
+            <div class="flex flex-wrap items-center gap-2">
+              <label class="text-sm font-extrabold text-campus-950">
+                Profile photograph
+              </label>
+              <span
+                class="rounded-full bg-campus-100 px-2 py-1 text-[9px] font-bold uppercase tracking-wider text-campus-900">
+                Optional
+              </span>
+            </div>
+
+            <p class="mt-1.5 text-xs leading-5 text-muted">
+              Upload a clear photograph to help identify the student.
+            </p>
+
+            <input type="file" accept="image/png,image/jpeg,image/webp" (change)="onFile($event)"
+              class="mt-3 block w-full text-xs text-muted file:mr-3 file:cursor-pointer file:rounded-lg file:border-0 file:bg-campus-900 file:px-4 file:py-2.5 file:text-xs file:font-bold file:text-white file:transition hover:file:bg-campus-950" />
+
+            <p class="mt-2 text-[10px] font-medium text-campus-700">
+              Supported formats: JPG, PNG, WEBP · Maximum size: 5 MB
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PERSONAL DETAILS -->
+      <div class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2">
+
+        <div>
+          <label for="student-name" class="mb-2 block text-xs font-bold text-campus-950">
+            Full name <span class="text-red-500">*</span>
+          </label>
+          <input id="student-name" formControlName="name" type="text" placeholder="e.g. Aarya Sharma"
+            class="w-full rounded-xl border border-line bg-[#FBFCFD] px-4 py-3 text-sm text-ink outline-none transition placeholder:text-slate-400 hover:border-campus-300 focus:border-campus-600 focus:bg-white focus:ring-4 focus:ring-campus-100/70"
+            [class.border-red-400]="invalid('name')" [class.focus:ring-red-100]="invalid('name')" />
+          <p *ngIf="invalid('name')" class="mt-1.5 text-xs font-medium text-red-600">
+            Enter a name containing at least 2 characters.
+          </p>
+        </div>
+
+        <div>
+          <label for="student-dob" class="mb-2 block text-xs font-bold text-campus-950">
+            Date of birth <span class="text-red-500">*</span>
+          </label>
+          <input id="student-dob" type="date" formControlName="dob" [max]="today"
+            class="w-full rounded-xl border border-line bg-[#FBFCFD] px-4 py-3 text-sm text-ink outline-none transition hover:border-campus-300 focus:border-campus-600 focus:bg-white focus:ring-4 focus:ring-campus-100/70"
+            [class.border-red-400]="invalid('dob')" />
+          <p *ngIf="invalid('dob')" class="mt-1.5 text-xs font-medium text-red-600">
+            Enter a valid date of birth.
+          </p>
+        </div>
+
+        <div>
+          <label for="student-email" class="mb-2 block text-xs font-bold text-campus-950">
+            Email address <span class="text-red-500">*</span>
+          </label>
+          <input id="student-email" type="email" formControlName="email" placeholder="student@example.com"
+            class="w-full rounded-xl border border-line bg-[#FBFCFD] px-4 py-3 text-sm text-ink outline-none transition placeholder:text-slate-400 hover:border-campus-300 focus:border-campus-600 focus:bg-white focus:ring-4 focus:ring-campus-100/70"
+            [class.border-red-400]="invalid('email')" />
+          <p *ngIf="invalid('email')" class="mt-1.5 text-xs font-medium text-red-600">
+            Enter a valid email address.
+          </p>
+        </div>
+
+        <div>
+          <label for="student-mobile" class="mb-2 block text-xs font-bold text-campus-950">
+            Mobile number <span class="text-red-500">*</span>
+          </label>
+          <input id="student-mobile" type="tel" inputmode="numeric" maxlength="10" formControlName="mobileNumber"
+            placeholder="Enter 10-digit mobile number" (input)="onMobileInput($event)"
+            class="w-full rounded-xl border border-line bg-[#FBFCFD] px-4 py-3 text-sm text-ink outline-none transition placeholder:text-slate-400 hover:border-campus-300 focus:border-campus-600 focus:bg-white focus:ring-4 focus:ring-campus-100/70"
+            [class.border-red-400]="invalid('mobileNumber')" />
+          <p class="mt-1.5 text-[10px] text-muted">Enter a 10-digit mobile number starting with 6, 7, 8 or 9.</p>
+          <p *ngIf="invalid('mobileNumber')" class="mt-1.5 text-xs font-medium text-red-600">
+            <ng-container *ngIf="form.controls.mobileNumber.hasError('required'); else mobilePattern">
+              Mobile number is required.
+            </ng-container>
+            <ng-template #mobilePattern>
+              Enter a valid Indian mobile number (10 digits, starting with 6, 7, 8 or 9).
+            </ng-template>
+          </p>
+        </div>
+
+        <div>
+          <label for="student-gender" class="mb-2 block text-xs font-bold text-campus-950">
+            Gender <span class="text-red-500">*</span>
+          </label>
+          <select id="student-gender" formControlName="gender"
+            class="w-full rounded-xl border border-line bg-[#FBFCFD] px-4 py-3 text-sm text-ink outline-none transition hover:border-campus-300 focus:border-campus-600 focus:bg-white focus:ring-4 focus:ring-campus-100/70"
+            [class.border-red-400]="invalid('gender')">
+            <option value="">Select gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+            <option value="Prefer not to say">Prefer not to say</option>
+          </select>
+          <p *ngIf="invalid('gender')" class="mt-1.5 text-xs font-medium text-red-600">
+            Select a gender option.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="border-t border-line"></div>
+
+    <!-- ACADEMIC INFORMATION -->
+    <section class="p-5 sm:p-8">
+      <div class="mb-7 flex items-start gap-4">
+        <span
+          class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[#E8F3F7] font-display text-sm font-extrabold text-campus-900">
+          02
+        </span>
+
+        <div>
+          <h2 class="font-display text-lg font-extrabold text-campus-950">
+            Academic information
+          </h2>
+          <p class="mt-1 text-xs leading-5 text-muted">
+            Details about the student's course and current academic year.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2">
+
+        <div>
+          <label for="student-course" class="mb-2 block text-xs font-bold text-campus-950">
+            Course <span class="text-red-500">*</span>
+          </label>
+          <input id="student-course" type="text" formControlName="course"
+            placeholder="e.g. Master of Computer Applications"
+            class="w-full rounded-xl border border-line bg-[#FBFCFD] px-4 py-3 text-sm text-ink outline-none transition placeholder:text-slate-400 hover:border-campus-300 focus:border-campus-600 focus:bg-white focus:ring-4 focus:ring-campus-100/70"
+            [class.border-red-400]="invalid('course')" />
+          <p *ngIf="invalid('course')" class="mt-1.5 text-xs font-medium text-red-600">
+            Enter a valid course name.
+          </p>
+        </div>
+
+        <div>
+          <label for="student-year" class="mb-2 block text-xs font-bold text-campus-950">
+            Academic year <span class="text-red-500">*</span>
+          </label>
+          <select id="student-year" formControlName="year"
+            class="w-full rounded-xl border border-line bg-[#FBFCFD] px-4 py-3 text-sm text-ink outline-none transition hover:border-campus-300 focus:border-campus-600 focus:bg-white focus:ring-4 focus:ring-campus-100/70"
+            [class.border-red-400]="invalid('year')">
+            <option [ngValue]="null">Select academic year</option>
+            <option [ngValue]="1">First Year</option>
+            <option [ngValue]="2">Second Year</option>
+            <option [ngValue]="3">Third Year</option>
+            <option [ngValue]="4">Fourth Year</option>
+            <option [ngValue]="5">Fifth Year</option>
+            <option [ngValue]="6">Sixth Year</option>
+          </select>
+          <p *ngIf="invalid('year')" class="mt-1.5 text-xs font-medium text-red-600">
+            Select an academic year.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- ADDRESS -->
+      <div class="mt-5">
+        <label for="student-address" class="mb-2 block text-xs font-bold text-campus-950">
+          Residential address <span class="text-red-500">*</span>
+        </label>
+        <textarea id="student-address" rows="4" formControlName="address" placeholder="Enter full residential address"
+          class="w-full resize-y rounded-xl border border-line bg-[#FBFCFD] px-4 py-3 text-sm leading-6 text-ink outline-none transition placeholder:text-slate-400 hover:border-campus-300 focus:border-campus-600 focus:bg-white focus:ring-4 focus:ring-campus-100/70"
+          [class.border-red-400]="invalid('address')"></textarea>
+        <p *ngIf="invalid('address')" class="mt-1.5 text-xs font-medium text-red-600">
+          Enter an address containing at least 5 characters.
+        </p>
+      </div>
+    </section>
+
+    <div class="border-t border-line"></div>
+
+    <!-- FORM FOOTER -->
+    <section class="flex flex-col gap-4 bg-[#F7FAFC] px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+      <p class="text-xs text-muted">
+        <span class="font-bold text-red-500">*</span>
+        Required fields
+      </p>
+
+      <div class="flex flex-col-reverse gap-3 sm:flex-row">
+        <a routerLink="/"
+          class="inline-flex items-center justify-center rounded-xl border border-line bg-white px-5 py-3 text-sm font-bold text-campus-700 transition hover:border-campus-300 hover:bg-campus-100/40">
+          Cancel
+        </a>
+
+        <button type="submit" [disabled]="saving"
+          class="inline-flex items-center justify-center gap-2 rounded-xl bg-campus-900 px-6 py-3 text-sm font-bold text-white shadow-md shadow-campus-900/15 transition hover:-translate-y-0.5 hover:bg-campus-950 focus:outline-none focus:ring-4 focus:ring-campus-100 disabled:cursor-not-allowed disabled:opacity-60">
+          <span *ngIf="saving" class="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white"></span>
+
+          {{
+          saving
+          ? "Saving..."
+          : isEdit
+          ? "Save changes"
+          : "Create student"
+          }}
+        </button>
+      </div>
+    </section>
+
+    <!-- ERROR ALERT -->
+    <div *ngIf="error"
+      class="mx-5 mb-5 flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700 sm:mx-8"
+      role="alert">
+      <span class="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-red-100 font-bold text-red-700">!</span>
+      <p class="pt-1">{{ error }}</p>
+    </div>
+
+  </form>
+
+  <p class="mt-6 text-center text-xs text-muted">
+    Campusly
+    <span class="mx-1.5 text-campus-300">·</span>
+    Smarter Campus. Simpler Management.
+  </p>
+
+</div>

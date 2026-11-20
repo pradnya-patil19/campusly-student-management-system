@@ -1,0 +1,74 @@
+<div class="flex min-h-screen flex-col bg-page">
+
+  <header class="sticky top-0 z-50 border-b border-line bg-white/95 backdrop-blur-xl">
+    <div class="mx-auto flex min-h-[76px] max-w-[1280px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+
+      <!-- BRAND -->
+      <a
+        routerLink="/"
+        class="group flex shrink-0 items-center gap-3"
+        aria-label="Campusly home"
+      >
+        <span class="grid h-11 w-11 place-items-center rounded-2xl bg-campus-950 font-display text-xl font-extrabold text-white shadow-lg shadow-campus-950/15 transition group-hover:bg-campus-900">
+          C
+        </span>
+
+        <span class="flex flex-col">
+          <span class="font-display text-xl font-extrabold tracking-tight text-campus-950">
+            Campusly
+          </span>
+          <span class="hidden text-[10px] font-semibold tracking-[0.12em] text-campus-700 sm:block">
+            SMARTER CAMPUS. SIMPLER MANAGEMENT.
+          </span>
+        </span>
+      </a>
+
+      <!-- NAVIGATION -->
+      <nav class="flex items-center gap-2 sm:gap-4" aria-label="Main navigation">
+
+        <a
+          routerLink="/"
+          routerLinkActive="!bg-campus-100 !text-campus-950"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="rounded-xl px-3 py-2.5 text-xs font-bold text-campus-700 transition hover:bg-campus-100/70 hover:text-campus-950 sm:px-4 sm:text-sm"
+        >
+          Students
+        </a>
+
+        <a
+          routerLink="/students/new"
+          routerLinkActive="!bg-campus-700"
+          class="inline-flex items-center gap-2 rounded-xl bg-campus-900 px-3.5 py-2.5 text-xs font-bold text-white shadow-md shadow-campus-900/15 transition hover:-translate-y-0.5 hover:bg-campus-950 focus:outline-none focus:ring-4 focus:ring-campus-100 sm:px-5 sm:text-sm"
+        >
+          <span class="text-lg leading-none">+</span>
+          <span>Add student</span>
+        </a>
+
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="mx-auto w-full max-w-[1280px] flex-1 px-4 py-7 sm:px-6 sm:py-9 lg:px-8">
+    <router-outlet />
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-line bg-white">
+    <div class="mx-auto flex max-w-[1280px] flex-col items-center justify-between gap-2 px-4 py-5 text-center sm:flex-row sm:px-6 lg:px-8">
+      <div class="font-display text-sm font-extrabold text-campus-950">
+        Campusly
+        <span class="ml-1 font-sans text-xs font-normal text-muted">
+          Smarter Campus. Simpler Management.
+        </span>
+      </div>
+
+      <p class="text-xs text-muted">
+        Student Management
+        <span class="mx-2 text-campus-300">·</span>
+        Academic Operations
+      </p>
+    </div>
+  </footer>
+
+</div>
